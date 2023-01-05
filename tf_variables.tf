@@ -13,7 +13,7 @@ variable "storage_account_name" {
   type        = string
 }
 
-variable vm_name {
+variable "vm_name" {
   type        = string
   description = "Name of the virtual machine which will be imported"
 }
