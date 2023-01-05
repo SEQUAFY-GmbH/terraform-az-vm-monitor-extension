@@ -9,6 +9,11 @@ resource "azurerm_monitor_data_collection_rule" "this" {
     }
   }
 
+  data_flow {
+    streams      = ["Microsoft-InsightsMetrics"]
+    destinations = ["azure-monitoring-metrics"]
+  }
+
   tags = merge(
     {
       Description = "Data collection rule for vm monitoring data"
@@ -18,7 +23,7 @@ resource "azurerm_monitor_data_collection_rule" "this" {
 }
 
 resource "azurerm_monitor_data_collection_rule_association" "vm_azmonitor_agent" {
-  name                    = "${data.azurerm_windows_virtual_machine.vm.name}-rule"
-  target_resource_id      = data.azurerm_windows_virtual_machine.vm.id
+  name                    = "${data.azurerm_virtual_machine.vm.name}-rule"
+  target_resource_id      = data.azurerm_virtual_machine.vm.id
   data_collection_rule_id = azurerm_monitor_data_collection_rule.this.id
 }
